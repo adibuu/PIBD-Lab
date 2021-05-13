@@ -14,6 +14,7 @@ export default {
         async logout() {
             try {
                 await axios.post("/api/logout");
+                localStorage.removeItem("isLogged");
                 if (this.$route.name != "home") {
                     this.$router.push({ name: "home" });
                 }

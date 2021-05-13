@@ -18,4 +18,22 @@ const router = new VueRouter({
         { path: "*", redirect: "/" }
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!isLogged()) {
+            next({
+                path: "/login",
+                query: { redirect: to.fullPath }
+            });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
+function isLogged() {
+    return localStorage.getItem("isLogged");
+}
 export default router;
