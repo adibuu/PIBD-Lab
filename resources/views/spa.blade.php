@@ -8,7 +8,7 @@
  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
- <div id="app"></div> <- Tutaj zostanie wczytana nasza aplikacja SPA!
+ <div id="app"></div>
  <!-- Scripts -->
  <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
