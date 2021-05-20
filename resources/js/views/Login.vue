@@ -33,11 +33,12 @@ export default {
                     password: this.form.password
                 });
                 localStorage.setItem("isLogged", "true");
+                this.$root.$emit("isLogged", true);
                 this.$router.push({ name: "dashboard" });
             } catch (err) {
-                console.log(err);
                 this.form.email = "";
                 this.form.password = "";
+                this.$root.$emit("error", err);
             }
         }
     }
