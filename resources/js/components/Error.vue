@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isError" class="modal">
+    <div v-if="isError">
         <div class="modal-content">
             <h3>Upps, coś poszło nie tak!</h3>
             <h6 class="text-justify">{{ message }}</h6>
@@ -47,3 +47,5 @@ export default {
     }
 };
 </script>
+
+<style scoped></style>

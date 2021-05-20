@@ -3,12 +3,14 @@
         Spa component
         <br />
         <navigation />
+        <error />
 
         <router-view></router-view>
     </div>
 </template>
 <script>
 import Navigation from "./components/Navigation.vue";
+import Error from "./components/Error.vue";
 
 export default {
     created() {
@@ -30,7 +32,8 @@ export default {
     },
 
     components: {
-        Navigation
+        Navigation,
+        Error
     }
 };
 </script>
