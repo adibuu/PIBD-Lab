@@ -6754,7 +6754,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.myModal[data-v-3409f2a6] {\r\n    display: flex; /* Hidden by default */\r\n    position: fixed; /* Stay in place */\r\n    z-index: 1; /* Sit on top */\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%; /* Full width */\r\n    height: 100%; /* Full height */\r\n    overflow: auto; /* Enable scroll if needed */\r\n    background-color: rgb(0, 0, 0); /* Fallback color */\r\n    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */\n}\n.modal-content[data-v-3409f2a6] {\r\n    background-color: #cf3535;\r\n    color: white;\r\n    font-family: Georgia, \"Times New Roman\", Times, serif;\r\n    margin: 15% auto; /* 15% from the top and centered */\r\n    padding: 20px;\r\n    border: 1px solid #888;\r\n    width: 400px;\r\n    height: 200px;\n}\r\n", ""]);
+exports.push([module.i, "\n.myModal[data-v-3409f2a6] {\r\n    display: flex;\r\n    position: fixed;\r\n    z-index: 1;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgb(0, 0, 0);\r\n    background-color: rgba(0, 0, 0, 0.4);\n}\n.modal-content[data-v-3409f2a6] {\r\n    background-color: #cf3535;\r\n    color: white;\r\n    font-family: Georgia, \"Times New Roman\", Times, serif;\r\n    margin: 15% auto;\r\n    padding: 20px;\r\n    border: 1px solid #888;\r\n    width: 400px;\r\n    height: 200px;\n}\r\n", ""]);
 
 // exports
 
