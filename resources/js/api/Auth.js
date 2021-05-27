@@ -1,5 +1,5 @@
 import { HttpRequest } from "./HttpRequest";
-export default class Auth {
+export class Auth {
     constructor(bus, router) {
         this.eventBus = bus;
         this.router = router;

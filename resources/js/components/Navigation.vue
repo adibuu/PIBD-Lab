@@ -13,9 +13,7 @@
     </div>
 </template>
 <script>
-import Error from "./Error";
 export default {
-    components: { Error },
     inject: ["auth", "eventBus"],
     data() {
         return { isLogged: null };

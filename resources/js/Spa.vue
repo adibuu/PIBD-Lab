@@ -10,11 +10,13 @@
 </template>
 <script>
 import Navigation from "./components/Navigation.vue";
+import Error from "./components/Error.vue";
 
 export default {
     inject: ["auth"],
     components: {
-        Navigation
+        Navigation,
+        Error
     },
     created() {
         axios.interceptors.response.use(

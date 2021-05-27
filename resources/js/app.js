@@ -6,7 +6,7 @@
 import Spa from "./Spa.vue";
 import Vue from "vue";
 import router from "./router";
-import Auth from "./api/Auth";
+import { Auth } from "./api/Auth";
 require("./bootstrap");
 
 const app = new Vue({

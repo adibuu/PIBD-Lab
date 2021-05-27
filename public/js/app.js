@@ -1921,6 +1921,7 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Navigation_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Navigation.vue */ "./resources/js/components/Navigation.vue");
+/* harmony import */ var _components_Error_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Error.vue */ "./resources/js/components/Error.vue");
 //
 //
 //
@@ -1932,10 +1933,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   inject: ["auth"],
   components: {
-    Navigation: _components_Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Navigation: _components_Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Error: _components_Error_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   created: function created() {
     var _this = this;
@@ -2027,7 +2030,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Error__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Error */ "./resources/js/components/Error.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2048,11 +2050,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    Error: _Error__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
   inject: ["auth", "eventBus"],
   data: function data() {
     return {
@@ -55000,12 +54998,12 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************!*\
   !*** ./resources/js/api/Auth.js ***!
   \**********************************/
-/*! exports provided: default */
+/*! exports provided: Auth */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Auth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Auth", function() { return Auth; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _HttpRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HttpRequest */ "./resources/js/api/HttpRequest.js");
@@ -55020,7 +55018,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 
 
 var Auth = /*#__PURE__*/function () {
@@ -55155,8 +55152,6 @@ var Auth = /*#__PURE__*/function () {
   return Auth;
 }();
 
-
-
 /***/ }),
 
 /***/ "./resources/js/api/HttpRequest.js":
@@ -55277,7 +55272,7 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   provide: function provide() {
     return {
       eventBus: this.eventBus,
-      auth: new _api_Auth__WEBPACK_IMPORTED_MODULE_3__["default"](this.eventBus, _router__WEBPACK_IMPORTED_MODULE_2__["default"])
+      auth: new _api_Auth__WEBPACK_IMPORTED_MODULE_3__["Auth"](this.eventBus, _router__WEBPACK_IMPORTED_MODULE_2__["default"])
     };
   }
 });
