@@ -13,7 +13,10 @@
     </div>
 </template>
 <script>
+import Error from "./Error";
 export default {
+    components: { Error },
+    inject: ["auth", "eventBus"],
     data() {
         return { isLogged: null };
     },
@@ -30,15 +33,8 @@ export default {
     methods: {
         async logout() {
             try {
-                await axios.post("/api/logout");
-                localStorage.removeItem("isLogged");
-                this.isLogged = false;
-                if (this.$route.name != "home") {
-                    this.$router.push({ name: "home" });
-                }
-            } catch (err) {
-                console.log(err);
-            }
+                await this.auth.logout();
+            } catch (err) {}
         }
     }
 };

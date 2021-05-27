@@ -10,9 +10,12 @@
 </template>
 <script>
 import Navigation from "./components/Navigation.vue";
-import Error from "./components/Error.vue";
 
 export default {
+    inject: ["auth"],
+    components: {
+        Navigation
+    },
     created() {
         axios.interceptors.response.use(
             response => {
@@ -20,20 +23,11 @@ export default {
             },
             error => {
                 if (error.response.status === 401) {
-                    localStorage.removeItem("isLogged");
-                    this.$root.$emit("isLogged", false);
-                    if (this.$route.path != "/login") {
-                        this.$router.push({ name: "login" });
-                    }
+                    this.auth.reset();
                 }
                 return Promise.reject(error);
             }
         );
-    },
-
-    components: {
-        Navigation,
-        Error
     }
 };
 </script>
