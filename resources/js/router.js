@@ -4,7 +4,6 @@ import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import Dashboard from "./views/Dashboard.vue";
 import { Auth } from "./api/Auth";
-
 Vue.use(VueRouter);
 const router = new VueRouter({
     mode: "history",
@@ -50,4 +49,7 @@ router.beforeEach((to, from, next) => {
     }
 });
 
+function isLogged() {
+    return localStorage.getItem("isLogged");
+}
 export default router;

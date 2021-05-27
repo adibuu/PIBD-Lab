@@ -14,18 +14,21 @@
 </template>
 <script>
 export default {
+    components: { Error },
     inject: ["auth", "eventBus"],
+
     data() {
         return { isLogged: null };
     },
     created() {
         this.isLogged = localStorage.getItem("isLogged");
-        this.$root.$on("isLogged", value => {
+        this.eventBus.$on("isLogged", value => {
             this.isLogged = value;
         });
     },
+
     beforeDestroy() {
-        this.$root.$off("isLogged");
+        this.eventBus.$off("isLogged");
     },
 
     methods: {

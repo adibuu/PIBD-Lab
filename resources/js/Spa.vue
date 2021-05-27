@@ -1,9 +1,9 @@
 <template>
     <div class="container">
+        <error />
         Spa component
         <br />
         <navigation />
-        <error />
 
         <router-view></router-view>
     </div>
@@ -11,13 +11,8 @@
 <script>
 import Navigation from "./components/Navigation.vue";
 import Error from "./components/Error.vue";
-
 export default {
     inject: ["auth"],
-    components: {
-        Navigation,
-        Error
-    },
     created() {
         axios.interceptors.response.use(
             response => {
@@ -30,6 +25,11 @@ export default {
                 return Promise.reject(error);
             }
         );
+    },
+
+    components: {
+        Navigation,
+        Error
     }
 };
 </script>

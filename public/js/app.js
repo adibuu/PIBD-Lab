@@ -1936,10 +1936,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   inject: ["auth"],
-  components: {
-    Navigation: _components_Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Error: _components_Error_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
   created: function created() {
     var _this = this;
 
@@ -1952,6 +1948,10 @@ __webpack_require__.r(__webpack_exports__);
 
       return Promise.reject(error);
     });
+  },
+  components: {
+    Navigation: _components_Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Error: _components_Error_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -1966,6 +1966,30 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2051,6 +2075,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Error: Error
+  },
   inject: ["auth", "eventBus"],
   data: function data() {
     return {
@@ -2061,12 +2088,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     this.isLogged = localStorage.getItem("isLogged");
-    this.$root.$on("isLogged", function (value) {
+    this.eventBus.$on("isLogged", function (value) {
       _this.isLogged = value;
     });
   },
   beforeDestroy: function beforeDestroy() {
-    this.$root.$off("isLogged");
+    this.eventBus.$off("isLogged");
   },
   methods: {
     logout: function logout() {
@@ -6716,7 +6743,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.myModal[data-v-3409f2a6] {\r\n    display: flex;\r\n    position: fixed;\r\n    z-index: 1;\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\r\n    background-color: rgb(0, 0, 0);\r\n    background-color: rgba(0, 0, 0, 0.4);\n}\n.modal-content[data-v-3409f2a6] {\r\n    background-color: #cf3535;\r\n    color: white;\r\n    font-family: Georgia, \"Times New Roman\", Times, serif;\r\n    margin: 15% auto;\r\n    padding: 20px;\r\n    border: 1px solid #888;\r\n    width: 400px;\r\n    height: 200px;\n}\r\n", ""]);
+exports.push([module.i, "\n.center-buttons[data-v-3409f2a6] {\r\n    align-items: center;\r\n    justify-content: center;\n}\n.modal-content[data-v-3409f2a6] {\r\n    text-align: center;\r\n    background-color: #ffb0b0;\r\n    margin: 15% auto;\r\n    padding: 20px;\r\n    border: 1px solid #888;\r\n    width: 80%;\n}\n.mymodal[data-v-3409f2a6] {\r\n    position: fixed;\r\n    z-index: 100;\r\n    background-color: rgba(0, 0, 0, 0.4);\r\n    left: 0;\r\n    top: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: auto;\n}\r\n", ""]);
 
 // exports
 
@@ -39331,12 +39358,11 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
+      _c("error"),
       _vm._v("\n    Spa component\n    "),
       _c("br"),
       _vm._v(" "),
       _c("navigation"),
-      _vm._v(" "),
-      _c("error"),
       _vm._v(" "),
       _c("router-view")
     ],
@@ -39366,15 +39392,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.isError
-    ? _c("div", { staticClass: "myModal" }, [
+    ? _c("div", { staticClass: "mymodal" }, [
         _c("div", { staticClass: "modal-content" }, [
           _c("h3", [_vm._v("Upps, coś poszło nie tak!")]),
           _vm._v(" "),
-          _c("h6", { staticClass: "text-justify" }, [
-            _vm._v(_vm._s(_vm.message))
-          ]),
+          _c("h6", [_vm._v(_vm._s(_vm.message))]),
           _vm._v(" "),
-          _c("div", { staticClass: "d-flex mt-3" }, [
+          _c("div", { staticClass: "d-flex mt-3 center-buttons" }, [
             _c(
               "button",
               {
@@ -55186,9 +55210,9 @@ var HttpRequest = /*#__PURE__*/function () {
   }
 
   _createClass(HttpRequest, [{
-    key: "sned",
+    key: "send",
     value: function () {
-      var _sned = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(httpMethod, url, data) {
+      var _send = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(httpMethod, url, data) {
         var _this$eventBus;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -55220,11 +55244,11 @@ var HttpRequest = /*#__PURE__*/function () {
         }, _callee, this, [[0, 6]]);
       }));
 
-      function sned(_x, _x2, _x3) {
-        return _sned.apply(this, arguments);
+      function send(_x, _x2, _x3) {
+        return _send.apply(this, arguments);
       }
 
-      return sned;
+      return send;
     }()
   }]);
 
@@ -55561,6 +55585,11 @@ router.beforeEach(function (to, from, next) {
     next();
   }
 });
+
+function isLogged() {
+  return localStorage.getItem("isLogged");
+}
+
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
@@ -55790,8 +55819,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Studia\Semestr 6\Projektowanie interfejsów baz danych\PIBD-Lab\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Studia\Semestr 6\Projektowanie interfejsów baz danych\PIBD-Lab\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Biblioteki\Dokumenty\Studia\Semestr VI\Programowanie Interfejsów Baz Danych\Laboratoria\php\Lab1\spaApp\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Biblioteki\Dokumenty\Studia\Semestr VI\Programowanie Interfejsów Baz Danych\Laboratoria\php\Lab1\spaApp\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
