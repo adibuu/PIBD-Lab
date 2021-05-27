@@ -32,4 +32,6 @@ Route::post('/login', function (Request $request) {
     Auth::logout();
     return response('');
     });
+
+Route::apiResource('students', 'StudentController');
     
