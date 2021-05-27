@@ -2,7 +2,7 @@ export class HttpRequest {
     constructor(bus) {
         this.eventBus = bus;
     }
-    async sned(httpMethod, url, data) {
+    async send(httpMethod, url, data) {
         try {
             return await axios.request({
                 method: httpMethod,

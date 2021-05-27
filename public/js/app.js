@@ -1936,10 +1936,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   inject: ["auth"],
-  components: {
-    Navigation: _components_Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Error: _components_Error_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
   created: function created() {
     var _this = this;
 
@@ -1952,6 +1948,10 @@ __webpack_require__.r(__webpack_exports__);
 
       return Promise.reject(error);
     });
+  },
+  components: {
+    Navigation: _components_Navigation_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Error: _components_Error_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -2051,6 +2051,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Error: Error
+  },
   inject: ["auth", "eventBus"],
   data: function data() {
     return {
@@ -2061,12 +2064,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     this.isLogged = localStorage.getItem("isLogged");
-    this.$root.$on("isLogged", function (value) {
+    this.eventBus.$on("isLogged", function (value) {
       _this.isLogged = value;
     });
   },
   beforeDestroy: function beforeDestroy() {
-    this.$root.$off("isLogged");
+    this.eventBus.$off("isLogged");
   },
   methods: {
     logout: function logout() {
@@ -39331,12 +39334,11 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
+      _c("error"),
       _vm._v("\n    Spa component\n    "),
       _c("br"),
       _vm._v(" "),
       _c("navigation"),
-      _vm._v(" "),
-      _c("error"),
       _vm._v(" "),
       _c("router-view")
     ],
@@ -55186,9 +55188,9 @@ var HttpRequest = /*#__PURE__*/function () {
   }
 
   _createClass(HttpRequest, [{
-    key: "sned",
+    key: "send",
     value: function () {
-      var _sned = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(httpMethod, url, data) {
+      var _send = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(httpMethod, url, data) {
         var _this$eventBus;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -55220,11 +55222,11 @@ var HttpRequest = /*#__PURE__*/function () {
         }, _callee, this, [[0, 6]]);
       }));
 
-      function sned(_x, _x2, _x3) {
-        return _sned.apply(this, arguments);
+      function send(_x, _x2, _x3) {
+        return _send.apply(this, arguments);
       }
 
-      return sned;
+      return send;
     }()
   }]);
 
@@ -55561,6 +55563,11 @@ router.beforeEach(function (to, from, next) {
     next();
   }
 });
+
+function isLogged() {
+  return localStorage.getItem("isLogged");
+}
+
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
