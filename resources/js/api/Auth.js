@@ -24,7 +24,7 @@ export class Auth {
             this.router.push({ name: "home" });
         }
     }
-    async getAuthUser() {
+    async getUser() {
         return await this.httpRequest.send("GET", "/api/user");
     }
     static isLogged() {

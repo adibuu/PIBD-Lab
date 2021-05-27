@@ -55103,9 +55103,9 @@ var Auth = /*#__PURE__*/function () {
       return logout;
     }()
   }, {
-    key: "getAuthUser",
+    key: "getUser",
     value: function () {
-      var _getAuthUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var _getUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -55124,11 +55124,11 @@ var Auth = /*#__PURE__*/function () {
         }, _callee3, this);
       }));
 
-      function getAuthUser() {
-        return _getAuthUser.apply(this, arguments);
+      function getUser() {
+        return _getUser.apply(this, arguments);
       }
 
-      return getAuthUser;
+      return getUser;
     }()
   }, {
     key: "reset",
@@ -55561,11 +55561,6 @@ router.beforeEach(function (to, from, next) {
     next();
   }
 });
-
-function isLogged() {
-  return localStorage.getItem("isLogged");
-}
-
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
