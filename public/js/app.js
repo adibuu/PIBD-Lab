@@ -1935,6 +1935,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  inject: ["auth"],
   created: function created() {
     var _this = this;
 
@@ -1942,15 +1943,7 @@ __webpack_require__.r(__webpack_exports__);
       return response;
     }, function (error) {
       if (error.response.status === 401) {
-        localStorage.removeItem("isLogged");
-
-        _this.$root.$emit("isLogged", false);
-
-        if (_this.$route.path != "/login") {
-          _this.$router.push({
-            name: "login"
-          });
-        }
+        _this.auth.reset();
       }
 
       return Promise.reject(error);
@@ -1988,11 +1981,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  inject: ["eventBus"],
   created: function created() {
-    this.$root.$on("error", this.handleError);
+    this.eventBus.$on("error", this.handleError);
   },
   beforeDestroy: function beforeDestroy() {
-    this.$root.$off("error");
+    this.eventBus.$off("error");
   },
   data: function data() {
     return {
@@ -2057,6 +2051,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Error: Error
+  },
+  inject: ["auth", "eventBus"],
   data: function data() {
     return {
       isLogged: null
@@ -2066,12 +2064,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var _this = this;
 
     this.isLogged = localStorage.getItem("isLogged");
-    this.$root.$on("isLogged", function (value) {
+    this.eventBus.$on("isLogged", function (value) {
       _this.isLogged = value;
     });
   },
   beforeDestroy: function beforeDestroy() {
-    this.$root.$off("isLogged");
+    this.eventBus.$off("isLogged");
   },
   methods: {
     logout: function logout() {
@@ -2084,32 +2082,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios.post("/api/logout");
+                return _this2.auth.logout();
 
               case 3:
-                localStorage.removeItem("isLogged");
-                _this2.isLogged = false;
-
-                if (_this2.$route.name != "home") {
-                  _this2.$router.push({
-                    name: "home"
-                  });
-                }
-
-                _context.next = 11;
+                _context.next = 7;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 5:
+                _context.prev = 5;
                 _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
 
-              case 11:
+              case 7:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[0, 5]]);
       }))();
     }
   }
@@ -2141,6 +2129,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  inject: ["auth"],
   data: function data() {
     return {
       user: null
@@ -2159,27 +2148,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return axios.get("/api/user");
+                _context.next = 2;
+                return _this.auth.getUser();
 
-              case 3:
+              case 2:
                 user = _context.sent;
                 _this.user = user.data.name;
-                _context.next = 10;
-                break;
 
-              case 7:
-                _context.prev = 7;
-                _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
-
-              case 10:
+              case 4:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 7]]);
+        }, _callee);
       }))();
     }
   }
@@ -2239,6 +2220,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  inject: ["auth"],
   data: function data() {
     return {
       form: {
@@ -2258,41 +2240,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios.get("/sanctum/csrf-cookie");
+                return _this.auth.login(_this.form);
 
               case 3:
-                _context.next = 5;
-                return axios.post("/api/login", {
-                  email: _this.form.email,
-                  password: _this.form.password
-                });
-
-              case 5:
-                localStorage.setItem("isLogged", "true");
-
-                _this.$root.$emit("isLogged", true);
-
-                _this.$router.push({
-                  name: "dashboard"
-                });
-
-                _context.next = 15;
+                _context.next = 9;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 5:
+                _context.prev = 5;
                 _context.t0 = _context["catch"](0);
                 _this.form.email = "";
                 _this.form.password = "";
 
-                _this.$root.$emit("error", _context.t0);
-
-              case 15:
+              case 9:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 5]]);
       }))();
     }
   }
@@ -39369,12 +39334,11 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
+      _c("error"),
       _vm._v("\n    Spa component\n    "),
       _c("br"),
       _vm._v(" "),
       _c("navigation"),
-      _vm._v(" "),
-      _c("error"),
       _vm._v(" "),
       _c("router-view")
     ],
@@ -55032,6 +54996,245 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/api/Auth.js":
+/*!**********************************!*\
+  !*** ./resources/js/api/Auth.js ***!
+  \**********************************/
+/*! exports provided: Auth */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Auth", function() { return Auth; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _HttpRequest__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HttpRequest */ "./resources/js/api/HttpRequest.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+var Auth = /*#__PURE__*/function () {
+  function Auth(bus, router) {
+    _classCallCheck(this, Auth);
+
+    this.eventBus = bus;
+    this.router = router;
+    this.httpRequest = new _HttpRequest__WEBPACK_IMPORTED_MODULE_1__["HttpRequest"](this.eventBus);
+  }
+
+  _createClass(Auth, [{
+    key: "login",
+    value: function () {
+      var _login = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(form) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.httpRequest.send("GET", "/sanctum/csrf-cookie");
+
+              case 2:
+                _context.next = 4;
+                return this.httpRequest.send("POST", "/api/login", {
+                  email: form.email,
+                  password: form.password
+                });
+
+              case 4:
+                localStorage.setItem("isLogged", "true");
+                this.eventBus.$emit("isLogged", true);
+                this.router.push({
+                  name: "dashboard"
+                });
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function login(_x) {
+        return _login.apply(this, arguments);
+      }
+
+      return login;
+    }()
+  }, {
+    key: "logout",
+    value: function () {
+      var _logout = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                localStorage.removeItem("isLogged");
+                this.eventBus.$emit("isLogged", false);
+                _context2.next = 4;
+                return this.httpRequest.send("POST", "/api/logout");
+
+              case 4:
+                if (this.router.currentRoute.name != "home") {
+                  this.router.push({
+                    name: "home"
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function logout() {
+        return _logout.apply(this, arguments);
+      }
+
+      return logout;
+    }()
+  }, {
+    key: "getUser",
+    value: function () {
+      var _getUser = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this.httpRequest.send("GET", "/api/user");
+
+              case 2:
+                return _context3.abrupt("return", _context3.sent);
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function getUser() {
+        return _getUser.apply(this, arguments);
+      }
+
+      return getUser;
+    }()
+  }, {
+    key: "reset",
+    value: function reset() {
+      localStorage.removeItem("isLogged");
+      this.eventBus.$emit("isLogged", false);
+
+      if (this.router.currentRoute.name != "login") {
+        this.router.push({
+          name: "login"
+        });
+      }
+    }
+  }], [{
+    key: "isLogged",
+    value: function isLogged() {
+      return localStorage.getItem("isLogged");
+    }
+  }]);
+
+  return Auth;
+}();
+
+/***/ }),
+
+/***/ "./resources/js/api/HttpRequest.js":
+/*!*****************************************!*\
+  !*** ./resources/js/api/HttpRequest.js ***!
+  \*****************************************/
+/*! exports provided: HttpRequest */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HttpRequest", function() { return HttpRequest; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var HttpRequest = /*#__PURE__*/function () {
+  function HttpRequest(bus) {
+    _classCallCheck(this, HttpRequest);
+
+    this.eventBus = bus;
+  }
+
+  _createClass(HttpRequest, [{
+    key: "send",
+    value: function () {
+      var _send = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(httpMethod, url, data) {
+        var _this$eventBus;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios.request({
+                  method: httpMethod,
+                  url: url,
+                  data: data
+                });
+
+              case 3:
+                return _context.abrupt("return", _context.sent);
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](0);
+                (_this$eventBus = this.eventBus) === null || _this$eventBus === void 0 ? void 0 : _this$eventBus.$emit("error", _context.t0);
+                throw _context.t0;
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[0, 6]]);
+      }));
+
+      function send(_x, _x2, _x3) {
+        return _send.apply(this, arguments);
+      }
+
+      return send;
+    }()
+  }]);
+
+  return HttpRequest;
+}();
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -55045,11 +55248,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _api_Auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./api/Auth */ "./resources/js/api/Auth.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 
 
 
@@ -55062,7 +55267,16 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   components: {
     Spa: _Spa_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  router: _router__WEBPACK_IMPORTED_MODULE_2__["default"]
+  router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
+  data: {
+    eventBus: new vue__WEBPACK_IMPORTED_MODULE_1___default.a()
+  },
+  provide: function provide() {
+    return {
+      eventBus: this.eventBus,
+      auth: new _api_Auth__WEBPACK_IMPORTED_MODULE_3__["Auth"](this.eventBus, _router__WEBPACK_IMPORTED_MODULE_2__["default"])
+    };
+  }
 });
 
 /***/ }),
@@ -55285,6 +55499,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/Home.vue */ "./resources/js/views/Home.vue");
 /* harmony import */ var _views_Login_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/Login.vue */ "./resources/js/views/Login.vue");
 /* harmony import */ var _views_Dashboard_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/Dashboard.vue */ "./resources/js/views/Dashboard.vue");
+/* harmony import */ var _api_Auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./api/Auth */ "./resources/js/api/Auth.js");
+
 
 
 
@@ -55320,7 +55536,7 @@ router.beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.requiresAuth;
   })) {
-    if (!isLogged()) {
+    if (!_api_Auth__WEBPACK_IMPORTED_MODULE_5__["Auth"].isLogged()) {
       next({
         path: "/login",
         query: {
@@ -55333,7 +55549,7 @@ router.beforeEach(function (to, from, next) {
   } else if (to.matched.some(function (record) {
     return record.meta.guestOnly;
   })) {
-    if (isLogged()) {
+    if (_api_Auth__WEBPACK_IMPORTED_MODULE_5__["Auth"].isLogged()) {
       next({
         path: "/dashboard",
         query: {

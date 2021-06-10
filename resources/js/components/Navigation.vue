@@ -14,31 +14,25 @@
 </template>
 <script>
 export default {
+    components: { Error },
+    inject: ["auth", "eventBus"],
     data() {
         return { isLogged: null };
     },
     created() {
         this.isLogged = localStorage.getItem("isLogged");
-        this.$root.$on("isLogged", value => {
+        this.eventBus.$on("isLogged", value => {
             this.isLogged = value;
         });
     },
     beforeDestroy() {
-        this.$root.$off("isLogged");
+        this.eventBus.$off("isLogged");
     },
-
     methods: {
         async logout() {
             try {
-                await axios.post("/api/logout");
-                localStorage.removeItem("isLogged");
-                this.isLogged = false;
-                if (this.$route.name != "home") {
-                    this.$router.push({ name: "home" });
-                }
-            } catch (err) {
-                console.log(err);
-            }
+                await this.auth.logout();
+            } catch (err) {}
         }
     }
 };

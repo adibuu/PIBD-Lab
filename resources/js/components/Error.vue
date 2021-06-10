@@ -14,11 +14,12 @@
 </template>
 <script>
 export default {
+    inject: ["eventBus"],
     created() {
-        this.$root.$on("error", this.handleError);
+        this.eventBus.$on("error", this.handleError);
     },
     beforeDestroy() {
-        this.$root.$off("error");
+        this.eventBus.$off("error");
     },
     data() {
         return {
