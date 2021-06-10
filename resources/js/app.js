@@ -7,6 +7,7 @@ import Spa from "./Spa.vue";
 import Vue from "vue";
 import router from "./router";
 import { Auth } from "./api/Auth";
+import { StudentsRepository } from "./api/StudentsRepository";
 require("./bootstrap");
 
 const app = new Vue({
@@ -22,7 +23,8 @@ const app = new Vue({
     provide() {
         return {
             eventBus: this.eventBus,
-            auth: new Auth(this.eventBus, router)
+            auth: new Auth(this.eventBus, router),
+            studentRepository: new StudentsRepository(this.eventBus)
         };
     }
 });
